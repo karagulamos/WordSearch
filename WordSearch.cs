@@ -1,3 +1,7 @@
+//  Author: Alexander Karagulamos
+//    Date: January 13, 2019
+// Comment: WordSearch
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -5,7 +9,7 @@ using System.Text;
 
 public class WordSearch 
 {
-    private const char Visited = '0';
+    private const char Checked = '%';
     
     private readonly Orientation[] _directions;
     private readonly WordDictionary _dictionary;
@@ -23,9 +27,9 @@ public class WordSearch
           _dictionary.Add(word);
     }
     
-    public IEnumerable<string> Solve(char[][] board) => Find(board).Distinct();
+    public IEnumerable<string> Solve(char[][] board) => Search(board).Distinct();
     
-    private IEnumerable<string> Find(char[][] board)
+    private IEnumerable<string> Search(char[][] board)
     {
         for(int row = 0; row < board.Length; row++)
         {
@@ -33,25 +37,25 @@ public class WordSearch
             {
                 var node = _dictionary.GetNode(board[row][col]);
                 
-                if(node == default(WordDictionary.Node)) 
+                if(node == WordDictionary.None) 
                     continue;
                 
                 var prefix = new StringBuilder($"{board[row][col]}");
                 
-                foreach(var word in Find(board, row, col, node, prefix))
+                foreach(var word in Search(board, row, col, node, prefix))
                     yield return word;                
             }
         }
     }
     
-    private IEnumerable<string> Find(char[][] board, int row, int col, WordDictionary.Node node, StringBuilder prefix)
+    private IEnumerable<string> Search(char[][] board, int row, int col, WordDictionary.Node node, StringBuilder prefix)
     {        
         if(node.IsWordEnd)
             yield return prefix.ToString();
         
-        var temp = board[row][col]; 
+        var toUncheck = board[row][col]; 
         
-        board[row][col] = Visited;
+        board[row][col] = Checked;
                 
         for(var idx = 0; idx < _directions.Length; idx++)
         {
@@ -61,19 +65,19 @@ public class WordSearch
             if(r < 0 || c < 0 || r >= board.Length || c >= board[0].Length)
                 continue;
                 
-            if(board[r][c] == Visited)
+            if(board[r][c] == Checked)
                 continue;                       
             
-            var child = WordDictionary.GetIndex(board[r][c]);
+            var next = WordDictionary.GetIndex(board[r][c]);
             
-            if(node.Children[child] == default(WordDictionary.Node)) 
+            if(node.Children[next] == WordDictionary.None) 
                 continue;
                                     
-            foreach(var word in Find(board, r, c, node.Children[child], prefix.Append(board[r][c])))
+            foreach(var word in Search(board, r, c, node.Children[next], prefix.Append(board[r][c])))
                 yield return word; 
         }
         
-        board[row][col] = temp;
+        board[row][col] = toUncheck;
         prefix.Length--;
     }
 }

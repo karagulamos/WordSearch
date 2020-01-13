@@ -1,3 +1,7 @@
+//  Author: Alexander Karagulamos
+//    Date: January 13, 2019
+// Comment: WordSearch
+
 using System;
 using System.Linq;
 
@@ -7,7 +11,10 @@ public class Program
   {
     var search = new WordSearch(new[] { 
       "oath","pea","eat","rain","earn","ear","rate","tar",
-      "hire","rake","taken","take","keen","rat","hit"
+      "hire","rake","taken","take","keen","rat","hit","ire",
+      "karate","her","neat","near","rather","he","er","ken",
+      "eta","at","ate","kata","oar","oath","earner","peasant",
+      "tarn","the","eh","el","there","era","en","ta"
     });
 
     var puzzle = new char[][]{

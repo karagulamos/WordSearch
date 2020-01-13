@@ -1,5 +1,11 @@
-public class WordDictionary
+//  Author: Alexander Karagulamos
+//    Date: January 13, 2019
+// Comment: WordSearch
+
+internal class WordDictionary
 {
+    internal const Node None = default(Node);
+
     private Node _root;
     
     public WordDictionary() => _root = new Node();
@@ -16,7 +22,7 @@ public class WordDictionary
         {
             var index = GetIndex(letter);
                 
-            if(current.Children[index] == default(Node))
+            if(current.Children[index] == None)
             {
               current.Children[index] = new Node();
             }
@@ -29,7 +35,7 @@ public class WordDictionary
         
     public static int GetIndex(char letter) => letter - 'a';    
     
-    public class Node
+    internal class Node
     {
         public Node[] Children { get; } = new Node[26];
         public bool IsWordEnd { get; set; }

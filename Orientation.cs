@@ -1,6 +1,10 @@
-public struct Orientation
+//  Author: Alexander Karagulamos
+//    Date: January 13, 2019
+// Comment: WordSearch
+
+internal struct Orientation
 {
-  public Orientation(int row, int col)
+  internal Orientation(int row, int col)
   {
     Row = row;
     Col = col;
