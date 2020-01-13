@@ -1,5 +1,5 @@
 //  Author: Alexander Karagulamos
-//    Date: January 13, 2019
+//    Date: January 13, 2020
 // Comment: https://repl.it/@karagulamos/WordSearch
 
 using System;
@@ -13,7 +13,7 @@ public class Program
       "oath","pea","eat","rain","earn","ear","rate","tar",
       "hire","rake","taken","take","keen","rat","hit","ire",
       "karate","her","neat","near","rather","he","er","ken",
-      "eta","at","ate","kata","oar","oath","earner","peasant",
+      "eta","at","ate","kata","oar","oat","earner","peasant",
       "tarn","the","eh","el","there","era","en","ta"
     });
 
@@ -24,7 +24,7 @@ public class Program
       new [] { 'r','e','l','n' }
     };
 
-    foreach(var word in search.Solve(puzzle).OrderBy(w => w))
+    foreach(var word in search.Solve(puzzle))
       Console.WriteLine(word);    
   }
 }
